@@ -4,6 +4,7 @@
     <Balance :total="+total" />
     <IncomeExpense :income="+income" :expense="+expense" />
     <TransactionList
+      v-if="transactions.length"
       :transactions="transactions"
       @transactionDeleted="handleTransactionDeleted"
     />
@@ -33,7 +34,7 @@ const transactions = ref([]);
 
 onMounted(() => {
   const saveTransactions = JSON.parse(localStorage.getItem("transactions"));
-  if (saveTransactions) {
+  if (saveTransactions.length) {
     transactions.value = saveTransactions;
   }
 });

@@ -40,7 +40,7 @@
 //   { id: 4, text: "Camera", amount: 150 },
 // ];
 
-import { defineProps, defineEmits, ref, reactive } from "vue";
+import { defineProps, defineEmits, ref, reactive, onMounted } from "vue";
 import draggable from "vuedraggable";
 const emit = defineEmits(["transactionDeleted"]);
 const props = defineProps({
@@ -49,8 +49,15 @@ const props = defineProps({
     required: true,
   },
 });
+const data = ref([]);
 const deleteTransaction = (id) => {
   emit("transactionDeleted", id);
+  setTimeout(() => {
+    data.value = props.transactions;
+  }, 200);
 };
-const data = ref(props.transactions);
+
+onMounted(() => {
+  data.value = props.transactions;
+});
 </script>
